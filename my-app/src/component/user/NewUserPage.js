@@ -1,23 +1,18 @@
 import React, {Component} from "react";
 import gql from "graphql-tag";
 import {useMutation} from "@apollo/react-hooks";
-import {InputText} from "primereact/inputtext";
-import {Button} from "primereact/button";
-import {Password} from "primereact/password";
 
 const ADD_USER = gql`
-    mutation CreateUser($firstName: String!, $lastName: String!, $password: String!, $username: String!) {
-        createUser(firstName: $firstName, lastName: $lastName, password: $password, username: $username) {
+    mutation CreateUser($input: UserInput!) {
+        createUser(input: $input) {
             firstName,
             lastName
         }
     }
 `;
 
-function AddUser(onChange, password) {
-    let lastName;
-    let firstName;
-    let username;
+function AddUser() {
+    let lastName, firstName, username, password;
     const [addUser, {data}] = useMutation(ADD_USER);
 
     return (
@@ -25,26 +20,29 @@ function AddUser(onChange, password) {
             event.preventDefault();
             addUser({
                 variables: {
-                    firstName: firstName.value,
-                    lastName: lastName.value,
-                    password: "test",
-                    username: username.value
+                    input: {
+                        firstName: firstName.value,
+                        lastName: lastName.value,
+                        username: username.value,
+                        password: password.value
+                    }
                 }
             });
             lastName.value = '';
             firstName.value = '';
             username.value = '';
+            password.value = '';
         }}>
             <div className="p-fluid p-formgrid p-grid">
                 <div className="p-field p-col">
                     <label htmlFor="inputFirstName">Prénom</label>
-                    <InputText ref={node => {
+                    <input ref={node => {
                         firstName = node;
                     }} id="inputFirstName" type="text"/>
                 </div>
                 <div className="p-field p-col">
                     <label htmlFor="inputLastName">Nom</label>
-                    <InputText ref={node => {
+                    <input ref={node => {
                         lastName = node;
                     }} id="inputLastName" type="text"/>
                 </div>
@@ -53,37 +51,29 @@ function AddUser(onChange, password) {
                 <div className="p-field p-col">
                     <label htmlFor="inputUsername">Nom d'utilisateur</label>
                     <div className="p-col">
-                        <InputText ref={node => {
+                        <input ref={node => {
                             username = node;
                         }} id="inputUsername" type="text"/>
                     </div>
                 </div>
                 <div className="p-field p-col">
                     <label htmlFor="inputPassword">Mot de passe</label>
-                    <Password id="inputPassword" value={password} onChange={onChange}/>
+                    <input ref={node => {
+                        password = node;
+                    }} id="inputPassword"/>
                 </div>
             </div>
-            <Button type="submit" label="Submit"/>
+            <input type="submit" label="Submit"/>
         </form>
     );
 }
 
 class NewUserPage extends Component {
-    state = {
-        password: ''
-    }
-
-    onChange = e => {
-        this.setState({
-            password: e.value
-        });
-    };
-
     render() {
         return (
             <div style={{backgroundColor: "white", padding: "0.5em", color: "black", borderRadius: "5px"}}>
                 <h1>Nouvel utilisateur</h1>
-                <AddUser onChange={this.onChange} password={this.state.password}/>
+                <AddUser/>
             </div>
         );
     }

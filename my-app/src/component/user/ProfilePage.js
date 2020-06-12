@@ -17,7 +17,7 @@ function ListUsers() {
     if (loading) return <span className="status-warning">LOADING</span>;
     if (error) return <span className="status-error">ERROR</span>;
     return data.users.map(({firstName, lastName}) => (
-        <span>Je m'appelle {firstName} {lastName}</span>
+        <li>{firstName} {lastName}</li>
     ));
 }
 
@@ -25,7 +25,10 @@ class ProfilePage extends Component {
     render() {
         return (
             <div>
-                <ListUsers />
+                <h1>Etudiants</h1>
+                <ol>
+                    <ListUsers/>
+                </ol>
             </div>
         );
     }
