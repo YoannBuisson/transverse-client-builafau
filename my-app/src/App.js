@@ -12,6 +12,7 @@ import TaskList from "./component/task/TaskList";
 import TaskDetail from "./component/task/TaskDetail";
 import ProjectList from "./component/project/ProjectList";
 import ProjectDetail from "./component/project/ProjectDetail";
+import NewUserPage from "./component/user/NewUserPage";
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
                     <Route path="/task/:id" component={TaskDetail}/>
                     <Route path="/projects" component={ProjectList}/>
                     <Route path="/projects/:id" component={ProjectDetail}/>
+                    <Route path="/new/user" component={NewUserPage}/>
                 </Switch>
             </header>
         </div>

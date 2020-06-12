@@ -10,17 +10,12 @@ import {ApolloProvider} from "@apollo/react-hooks";
 
 const client = new ApolloClient({
     uri: 'http://localhost:4000/',
-    cache: new InMemoryCache()
+    cache: new InMemoryCache(),
+    onError: ({ networkError, graphQLErrors }) => {
+        console.log('graphQLErrors', graphQLErrors)
+        console.log('networkError', networkError)
+    }
 });
-
-// client.query({
-//     query: gql`
-//         query Assert{
-//             projects
-//         }
-//     `
-// })
-// .then(result => console.log("Reponse from graphql:", result));
 
 
 ReactDOM.render(
