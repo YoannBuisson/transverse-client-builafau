@@ -5,7 +5,7 @@ import "./student.css";
 
 const ADD_USER = gql`
     mutation CreateUser($input: UserInput!) {
-        createUser(input: $input) {
+        createUserWithInput(input: $input) {
             firstName,
             lastName
         }
@@ -17,7 +17,19 @@ function AddUser() {
     const [addUser, {data}] = useMutation(ADD_USER);
 
     return (
-        <form>
+        <form onSubmit={event => {
+                     event.preventDefault();
+                     addUser({
+                         variables: {
+                             input: {
+                                 firstName: 'Thibault',
+                                 lastName: 'Lafaurie',
+                                 username: 'Glabustre',
+                                 password: 'Toto'
+                             }
+                         }
+                     });
+                 }}>
             <div className="form-group"><label>Prénom</label><input type="text" className="form-control"/></div>
             <div className="form-group"><label>Nom</label><input type="text" className="form-control"/></div>
             <div className="form-group"><label>Nom d&#39;utilisateur</label><input type="text"
@@ -26,23 +38,6 @@ function AddUser() {
             </div>
             <button className="btn btn-outline-dark d-flex m-auto" type="submit">Button</button>
         </form>
-        // <form onSubmit={event => {
-        //     event.preventDefault();
-        //     addUser({
-        //         variables: {
-        //             input: {
-        //                 firstName: firstName.value,
-        //                 lastName: lastName.value,
-        //                 username: username.value,
-        //                 password: password.value
-        //             }
-        //         }
-        //     });
-        //     lastName.value = '';
-        //     firstName.value = '';
-        //     username.value = '';
-        //     password.value = '';
-        // }}>
         //     <div className="p-fluid p-formgrid p-grid">
         //         <div className="p-field p-col">
         //             <label htmlFor="inputFirstName">Prénom</label>
