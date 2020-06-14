@@ -20,10 +20,10 @@ function ListProjects() {
     ));
 }
 
-class ProjectList extends Component {
+class Projects extends Component {
     render() {
         return <ListProjects/>;
     }
 }
 
-export default ProjectList;
+export default Projects;

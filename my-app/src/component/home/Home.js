@@ -16,10 +16,10 @@ function CheckConfig() {
     return <span className="status-ok">OK</span>;
 }
 
-class HomePage extends Component {
+class Home extends Component {
     render() {
         return  <p>GraphQL status: <CheckConfig /></p>
     }
 }
 
-export default HomePage;
+export default Home;

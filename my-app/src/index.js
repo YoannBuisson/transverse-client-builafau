@@ -7,6 +7,7 @@ import {BrowserRouter} from "react-router-dom";
 import {InMemoryCache} from "apollo-cache-inmemory";
 import ApolloClient, {gql} from "apollo-boost";
 import {ApolloProvider} from "@apollo/react-hooks";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const client = new ApolloClient({
     uri: 'http://localhost:4000/',
