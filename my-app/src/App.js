@@ -15,8 +15,8 @@ import Students from "./component/student/Students";
 function App() {
     return (
         <div className="App">
-            <AppMenu/>
             <header className="App-header">
+                <AppMenu/>
                 <Switch>
                     <Route path="/home" component={Home}/>
                     <Route path="/students" component={Students}/>

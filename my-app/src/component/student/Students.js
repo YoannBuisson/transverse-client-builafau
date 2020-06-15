@@ -3,7 +3,9 @@ import gql from "graphql-tag";
 import {useQuery} from "@apollo/react-hooks";
 import Card from "react-bootstrap/Card";
 import {Link, Route} from "react-router-dom";
-import StudentDetails from "./StudentDetails";
+import student_logo from './img/student.svg'
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const GET_STUDENTS = gql`
     {
@@ -11,6 +13,7 @@ const GET_STUDENTS = gql`
             _id
             firstName
             lastName
+            username
         }
     }
 `;
@@ -20,28 +23,31 @@ function ShowStudents() {
 
     if (loading) return <span className="status-warning">LOADING</span>;
     if (error) return <span className="status-error">ERROR</span>;
-    return data.users.map(({_id, firstName, lastName}) => (
-        <Card style={{backgroundColor: "transparent"}} className="shadow border-secondary">
-            <Card.Body>
-                <Card.Title>{firstName}</Card.Title>
-                <Card.Subtitle className="text-muted card-subtitle mb-2">{lastName}</Card.Subtitle>
-                <Card.Text className="card-text">
-                    Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio,
-                    dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget
-                    metus.
-                </Card.Text>
-                <Link to={`/students/${_id}`} activeClassName="active">Détails</Link>
-            </Card.Body>
-        </Card>
+    return data.users.map(({_id, firstName, lastName, username}) => (
+        <div className="border rounded shadow" style={{padding: "0.5em", margin: "0.5em", width: "30vw"}}>
+            <Row>
+                <Col style={{paddingBottom: "0.5em"}}>
+                    <span>{firstName} {lastName}</span>
+                </Col>
+            </Row>
+            <Row>
+                <Col md={4}>
+                    <img src={student_logo} alt="student logo"/>
+                </Col>
+                <Col md={7} className="d-flex flex-column" style={{fontSize: "0.7em"}}>
+                    <span>Nom d'utilisateur : <strong>{username}</strong></span>
+                </Col>
+            </Row>
+        </div>
     ));
 }
 
 class Students extends Component {
     render() {
         return (
-            <div>
+            <div style={{width: "100%", height: "70vh"}}>
                 <h1>Etudiants</h1>
-                <div className="container d-flex">
+                <div className="d-flex justify-content-around flex-wrap">
                     <ShowStudents/>
                 </div>
             </div>

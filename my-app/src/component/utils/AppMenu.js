@@ -4,7 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import {NavLink} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser} from "@fortawesome/free-solid-svg-icons/faUser";
-import styles from './menu.module.css';
+import styles from './css/menu.module.css';
 import {faProjectDiagram} from "@fortawesome/free-solid-svg-icons/faProjectDiagram";
 import {faTasks} from "@fortawesome/free-solid-svg-icons/faTasks";
 
@@ -12,7 +12,7 @@ export class AppMenu extends Component {
 
     render() {
         return (
-            <Navbar bg="light" expand="md">
+            <Navbar bg="light" expand="md" fixed="top">
                 <div className="container-fluid">
                     <Navbar.Brand href="/home">
                         Transverse Client

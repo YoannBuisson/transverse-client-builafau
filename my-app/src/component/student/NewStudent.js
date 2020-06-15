@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import gql from "graphql-tag";
 import {useMutation} from "@apollo/react-hooks";
-import "./student.css";
 
 const ADD_USER = gql`
     mutation CreateUser($input: UserInput!) {
@@ -18,58 +17,48 @@ function AddUser() {
 
     return (
         <form onSubmit={event => {
-                     event.preventDefault();
-                     addUser({
-                         variables: {
-                             input: {
-                                 firstName: 'Thibault',
-                                 lastName: 'Lafaurie',
-                                 username: 'Glabustre',
-                                 password: 'Toto'
-                             }
-                         }
-                     });
-                 }}>
-            <div className="form-group"><label>Prénom</label><input type="text" className="form-control"/></div>
-            <div className="form-group"><label>Nom</label><input type="text" className="form-control"/></div>
-            <div className="form-group"><label>Nom d&#39;utilisateur</label><input type="text"
-                                                                                   className="form-control"/></div>
-            <div className="form-group"><label>Mot de passe</label><input type="text" className="form-control"/>
+            event.preventDefault();
+            addUser({
+                variables: {
+                    input: {
+                        firstName: firstName.value,
+                        lastName: lastName.value,
+                        username: username.value,
+                        password: password.value
+                    }
+                }
+            });
+            firstName.value = '';
+            lastName.value = '';
+            username.value = '';
+            password.value = '';
+        }}>
+            <div className="form-group">
+                <label>Prénom</label>
+                <input ref={node => {
+                    firstName = node
+                }} type="text" className="form-control"/>
             </div>
-            <button className="btn btn-outline-dark d-flex m-auto" type="submit">Button</button>
+            <div className="form-group">
+                <label>Nom</label>
+                <input ref={node => {
+                    lastName = node
+                }} type="text" className="form-control"/>
+            </div>
+            <div className="form-group">
+                <label>Nom d&#39;utilisateur</label>
+                <input ref={node => {
+                    username = node
+                }} type="text" className="form-control"/>
+            </div>
+            <div className="form-group">
+                <label>Mot de passe</label>
+                <input ref={node => {
+                    password = node
+                }} type="password" className="form-control"/>
+            </div>
+            <button className="btn btn-outline-light d-flex m-auto" type="submit">Valider</button>
         </form>
-        //     <div className="p-fluid p-formgrid p-grid">
-        //         <div className="p-field p-col">
-        //             <label htmlFor="inputFirstName">Prénom</label>
-        //             <input ref={node => {
-        //                 firstName = node;
-        //             }} id="inputFirstName" type="text"/>
-        //         </div>
-        //         <div className="p-field p-col">
-        //             <label htmlFor="inputLastName">Nom</label>
-        //             <input ref={node => {
-        //                 lastName = node;
-        //             }} id="inputLastName" type="text"/>
-        //         </div>
-        //     </div>
-        //     <div className="p-fluid p-formgrid p-grid">
-        //         <div className="p-field p-col">
-        //             <label htmlFor="inputUsername">Nom d'utilisateur</label>
-        //             <div className="p-col">
-        //                 <input ref={node => {
-        //                     username = node;
-        //                 }} id="inputUsername" type="text"/>
-        //             </div>
-        //         </div>
-        //         <div className="p-field p-col">
-        //             <label htmlFor="inputPassword">Mot de passe</label>
-        //             <input ref={node => {
-        //                 password = node;
-        //             }} id="inputPassword"/>
-        //         </div>
-        //     </div>
-        //     <input type="submit" label="Submit"/>
-        // </form>
     );
 }
 
@@ -78,7 +67,7 @@ class NewStudent extends Component {
         return (
             <div>
                 <h1>Nouvel utilisateur</h1>
-                <div className="border rounded shadow">
+                <div className="border shadow rounded" style={{padding: "0.5em"}}>
                     <AddUser/>
                 </div>
             </div>
