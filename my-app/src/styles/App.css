@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.app-body {
+  background-color: #282c34;
+  color: white;
+  min-height: 100vh;
+}

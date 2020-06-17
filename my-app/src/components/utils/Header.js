@@ -8,22 +8,17 @@ import styles from './css/menu.module.css';
 import {faProjectDiagram} from "@fortawesome/free-solid-svg-icons/faProjectDiagram";
 import {faTasks} from "@fortawesome/free-solid-svg-icons/faTasks";
 
-export class AppMenu extends Component {
+export class Header extends Component {
 
     render() {
         return (
-            <Navbar bg="light" expand="md" fixed="top">
+            <Navbar variant="dark" bg="dark" expand="md" sticky="top">
                 <div className="container-fluid">
-                    <Navbar.Brand href="/home">
+                    <Navbar.Brand href="/">
                         Transverse Client
                     </Navbar.Brand>
-                    <button data-toggle="collapse" data-target="#navcol-1" className="navbar-toggler">
-                        <span className="sr-only">
-                            Toggle navigation
-                        </span>
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <Navbar.Collapse id="navcol-1">
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+                    <Navbar.Collapse id="response-navbar-nav">
                         <Nav>
                             <li role="presentation" className="nav-item">
                                 <NavLink to="/students" className="nav-link">
@@ -45,13 +40,10 @@ export class AppMenu extends Component {
                             </Nav.Item>
                         </Nav>
                     </Navbar.Collapse>
-                    <NavLink to="/new/student" className="btn btn-outline-dark" role="button">
-                        Nouvel étudiant
-                    </NavLink>
                 </div>
             </Navbar>
         );
     }
 }
 
-export default AppMenu
+export default Header

@@ -4,7 +4,7 @@ class StudentDetails extends Component {
     render() {
         return (
             <div>
-                <h1>Test</h1>
+                <h1>Test {this.props.match.params.id}</h1>
             </div>
         );
     }
