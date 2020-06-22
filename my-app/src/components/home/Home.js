@@ -9,7 +9,7 @@ const GET_GRAPHQL_INFO = gql`
 `;
 
 function CheckConfig() {
-    const { loading, error, data, networkStatus } = useQuery(GET_GRAPHQL_INFO);
+    const { loading, error } = useQuery(GET_GRAPHQL_INFO);
 
     if (loading) return <span className="status-warning">LOADING</span>;
     if (error) return <span className="status-error">ERROR</span>;
