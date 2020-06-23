@@ -1,12 +1,10 @@
 .card {
-    width: 15em;
     margin: 0.5em;
 }
 
 .students {
     text-align: center;
     width: 100%;
-    height: 100vh;
 }
 
 .formStudent {
@@ -22,4 +20,29 @@
     background-color: transparent;
     border: 0;
     border-bottom: 1px solid white;
+}
+
+.studentTitle {
+    color: #306a94;
+    font-weight: bold;
+}
+
+.btnAdd {
+    background-color: #3498db;
+    color: white;
+}
+
+.btnCreate {
+    background-color: #3498db;
+    color: white;
+}
+
+.formBox {
+    color: #3498db;
+    border: 1px solid #3498db;
+    border-radius: 5px;
+}
+
+.formTitle {
+    margin-bottom: 1em;
 }

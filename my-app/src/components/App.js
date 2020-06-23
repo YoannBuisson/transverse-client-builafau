@@ -14,6 +14,11 @@ import Login from './utils/Login';
 import Register from './utils/Register';
 
 
+export function changeRoute(props, route) {
+    console.log(props, route);
+    props.history.push(route);
+}
+
 function App() {
     return (
         <div className="app-body">

@@ -1,16 +1,14 @@
 import React, {Component} from "react";
 import {useMutation} from "react-apollo";
 import Form from "react-bootstrap/Form";
-import {AUTH_TOKEN} from "../../constants";
 import Col from "react-bootstrap/Col";
 import gql from "graphql-tag";
-import {createBrowserHistory} from 'history';
 import TextField from "@material-ui/core/TextField";
 import {Box, Button} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
-import makeStyles from "@material-ui/core/styles/makeStyles";
+import {makeStyles} from "@material-ui/core/styles";
+import {changeRoute} from "../App";
 
-const history = createBrowserHistory();
 const SIGN_UP = gql`
     mutation SignupMutation($input: UserInput!) {
         signUp(input: $input) {
@@ -18,33 +16,29 @@ const SIGN_UP = gql`
         }
     }
 `;
-const state = {
-    email: '',
-    password: '',
-    username: ''
-}
-const useStyles = makeStyles((theme) => ({
-    formTitle: {
-        background: "linear-gradient(to right, #2c3e50, #3498db)"
-    },
+const useStyles = makeStyles({
     btnSubmit: {
-        '&:hover': {
-            background: "transparent"
-        },
-        background: "transparent",
         color: "white",
-        border: "1px solid white"
+        backgroundColor: "#3498db",
+    },
+    formBox: {
+        color: "#3498db",
+        border: "1px solid #3498db",
+        borderRadius: "5px",
+    },
+    formTitle: {
+        marginBottom: "1em"
     }
-}));
+});
 
-function SignUp() {
+function SignUp({arg}) {
     const classes = useStyles();
-    let {email, password, username} = state;
+    let email, username, password;
     const [signUp, {data}] = useMutation(SIGN_UP);
 
     return (
-        <Box boxShadow={3} className={`text-center rounded ${classes.formTitle}`} color="white" p="1em 0" m="25% 0">
-            <h1>Nouveau compte</h1>
+        <Box boxShadow={3} className={`text-center rounded ${classes.formBox}`} color="white" p="1em 0" m="25% 0">
+            <h1 className={classes.formTitle}>Nouveau compte</h1>
             <Form onSubmit={e => {
                 e.preventDefault();
                 signUp({
@@ -56,9 +50,7 @@ function SignUp() {
                         }
                     }
                 }).then(data => {
-                    const {token} = data.data.signUp.token;
-                    localStorage.setItem(AUTH_TOKEN, token);
-                    history.push('/');
+                    changeRoute(arg, '/login');
                 });
                 email.value = '';
                 username.value = '';
@@ -66,29 +58,29 @@ function SignUp() {
             }}>
                 <Form.Row>
                     <Form.Group as={Col}>
-                        <TextField type="text" label="Email" variant="outlined" ref={node => {
+                        <TextField type="email" label="Email" variant="outlined" inputRef={node => {
                             email = node
                         }} InputLabelProps={{
                             shrink: true,
-                        }}/>
+                        }} required/>
                     </Form.Group>
                 </Form.Row>
                 <Form.Row>
                     <Form.Group as={Col}>
-                        <TextField type="text" label="Nom d'utilisateur" variant="outlined" ref={node => {
+                        <TextField type="text" label="Nom d'utilisateur" variant="outlined" inputRef={node => {
                             username = node
                         }} InputLabelProps={{
                             shrink: true,
-                        }}/>
+                        }} required/>
                     </Form.Group>
                 </Form.Row>
                 <Form.Row>
                     <Form.Group as={Col}>
-                        <TextField type="password" label="Mot de passe" variant="outlined" ref={node => {
+                        <TextField type="password" label="Mot de passe" variant="outlined" inputRef={node => {
                             password = node
                         }} InputLabelProps={{
                             shrink: true,
-                        }}/>
+                        }} required/>
                     </Form.Group>
                 </Form.Row>
                 <Button className={classes.btnSubmit} type="submit" variant="contained">Confirmer</Button>
@@ -101,7 +93,7 @@ class Register extends Component {
     render() {
         return (
             <Container maxWidth="sm">
-                <SignUp/>
+                <SignUp maxRoot={this.props.history} arg={this.props}/>
             </Container>
         )
     }
