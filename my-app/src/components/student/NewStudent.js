@@ -1,88 +1,88 @@
 import React, {Component} from "react";
 import gql from "graphql-tag";
-import {useMutation} from "@apollo/react-hooks";
 import styles from './styles/students.module.css'
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
+import {useMutation} from 'react-apollo'
+import {changeRoute} from "../App";
+import TextField from "@material-ui/core/TextField";
+import {Box, Button} from "@material-ui/core";
+import Container from "@material-ui/core/Container";
 
-const ADD_USER = gql`
-    mutation CreateUser($input: UserInput!) {
-        createUserWithInput(input: $input) {
+const POST_STUDENT = gql`
+    mutation CreateUser($input: StudentInput!) {
+        createStudentWithInput(input: $input) {
             firstName,
             lastName
         }
     }
 `;
 
-function AddUser() {
-    let lastName, firstName, username, password;
-    const [addUser, {data}] = useMutation(ADD_USER);
+function CreateStudent({arg}) {
+    let lastName, firstName, email;
+    const [createStudentWithInput, {data}] = useMutation(POST_STUDENT);
 
     return (
-        <Form onSubmit={event => {
-            event.preventDefault();
-            addUser({
-                variables: {
-                    input: {
-                        firstName: firstName.value,
-                        lastName: lastName.value,
-                        username: username.value,
-                        password: password.value
+        <Box boxShadow={3} className={`text-center rounded ${styles.formBox}`} p="1em 0" m="25% 0">
+            <h1 className={styles.formTitle}>Nouvel étudiant</h1>
+            <Form onSubmit={e => {
+                e.preventDefault();
+                createStudentWithInput({
+                    variables: {
+                        input: {
+                            firstName: firstName.value,
+                            lastName: lastName.value,
+                            email: email.value,
+                        }
                     }
-                }
-            }).then(r => this.props.history.push('/students'));
-            firstName.value = '';
-            lastName.value = '';
-            username.value = '';
-            password.value = '';
-        }} className={styles.formStudent}>
-            <Form.Row>
-                <Form.Group as={Col}>
-                    <label>Nom</label>
-                    <input ref={node => {
-                        lastName = node
-                    }} type="text" className="form-control"
-                           style={{backgroundColor: '#3a3e45', borderBottom: '1px solid white'}}/>
-                </Form.Group>
-                <Form.Group as={Col}>
-                    <label>Prénom</label>
-                    <input ref={node => {
-                        firstName = node
-                    }} type="text" className="form-control"
-                           style={{backgroundColor: '#3a3e45', borderBottom: '1px solid white'}}/>
-                </Form.Group>
-            </Form.Row>
-            <Form.Row>
-                <Form.Group as={Col}>
-                    <label>Nom d&#39;utilisateur</label>
-                    <input ref={node => {
-                        username = node
-                    }} type="text" className="form-control"
-                           style={{backgroundColor: '#3a3e45', borderBottom: '1px solid white'}}/>
-                </Form.Group>
-                <Form.Group as={Col}>
-                    <label>Mot de passe</label>
-                    <input ref={node => {
-                        password = node
-                    }} type="password" className="form-control"
-                           style={{backgroundColor: '#3a3e45', borderBottom: '1px solid white'}}/>
-                </Form.Group>
-            </Form.Row>
-            <button className="btn btn-outline-light d-flex m-auto" type="submit">Valider</button>
-        </Form>
-    );
+                }).then(data => {
+                    console.log("Passwed");
+                    changeRoute(arg, '/students');
+                });
+                email.value = '';
+                lastName.value = '';
+                firstName.value = '';
+            }}>
+                <Form.Row>
+                    <Form.Group as={Col}>
+                        <TextField type="text" label="Prénom" variant="outlined" inputRef={node => {
+                            firstName = node
+                        }} InputLabelProps={{
+                            shrink: true,
+                        }} required/>
+                    </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                    <Form.Group as={Col}>
+                        <TextField type="text" label="Nom" variant="outlined" inputRef={node => {
+                            lastName = node
+                        }} InputLabelProps={{
+                            shrink: true,
+                        }} required/>
+                    </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                    <Form.Group as={Col}>
+                        <TextField type="email" label="Email" variant="outlined" inputRef={node => {
+                            email = node
+                        }} InputLabelProps={{
+                            shrink: true,
+                        }} required/>
+                    </Form.Group>
+                </Form.Row>
+                <Button className={styles.btnCreate} type="submit" variant="contained">Confirmer</Button>
+            </Form>
+        </Box>
+    )
 }
 
 class NewStudent extends Component {
     render() {
         return (
-            <div className="text-center">
-                <h1>Nouvel utilisateur</h1>
-                <div className="container border shadow rounded">
-                    <AddUser/>
-                </div>
-            </div>
-        );
+            <Container maxWidth="sm" className={styles.newStudentContainer}>
+                <CreateStudent arg={this.props}/>
+            </Container>
+        )
     }
 }
 

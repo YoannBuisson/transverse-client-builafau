@@ -38,7 +38,6 @@
 }
 
 .app-body {
-  background-color: #282c34;
-  color: white;
+  background: linear-gradient(to right, #d3cce3, #e9e4f0);
   min-height: 100vh;
 }

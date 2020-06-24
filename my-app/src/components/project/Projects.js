@@ -11,7 +11,7 @@ const GET_PROJECTS = gql`
 `;
 
 function ListProjects() {
-    const {loading, error, data, networkStatus} = useQuery(GET_PROJECTS);
+    const {loading, error, data } = useQuery(GET_PROJECTS);
 
     if (loading) return <span className="status-warning">LOADING</span>;
     if (error) return <span className="status-error">ERROR</span>;
