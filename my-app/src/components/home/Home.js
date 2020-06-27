@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { useQuery } from "@apollo/react-hooks";
+import React, {Component} from 'react';
+import {useQuery} from "@apollo/react-hooks";
 import gql from "graphql-tag";
 
 const GET_GRAPHQL_INFO = gql`
@@ -9,7 +9,7 @@ const GET_GRAPHQL_INFO = gql`
 `;
 
 function CheckConfig() {
-    const { loading, error } = useQuery(GET_GRAPHQL_INFO);
+    const {loading, error} = useQuery(GET_GRAPHQL_INFO);
 
     if (loading) return <span className="status-warning">LOADING</span>;
     if (error) return <span className="status-error">ERROR</span>;
@@ -18,7 +18,7 @@ function CheckConfig() {
 
 class Home extends Component {
     render() {
-        return  <p>GraphQL status: <CheckConfig /></p>
+        return <p>GraphQL status: <CheckConfig/></p>
     }
 }
 

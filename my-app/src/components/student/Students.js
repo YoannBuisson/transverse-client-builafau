@@ -62,7 +62,7 @@ function ShowStudents() {
                 <Button size="small" color="primary">
                     Share
                 </Button>
-                <Button size="small" color="primary" component={Link} to={`/students/${_id}`} >
+                <Button size="small" color="primary" component={Link} to={`/students/${_id}`}>
                     En savoir plus
                 </Button>
             </CardActions>
@@ -91,7 +91,7 @@ class Students extends Component {
                     <ShowStudents/>
                 </div>
                 {localStorage.getItem(AUTH_TOKEN) !== null && (
-                    <Fab className={styles.btnAdd} aria-label="add" component={Link} to="/new/student">
+                    <Fab style={{backgroundColor: "#306a94"}} aria-label="add" component={Link} to="/new/student">
                         <AddIcon/>
                     </Fab>
                 )}

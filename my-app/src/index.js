@@ -9,11 +9,28 @@ import ApolloClient from 'apollo-boost';
 import {ApolloProvider} from "@apollo/react-hooks";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'fontsource-roboto';
+import {setContext} from "apollo-link-context";
+import {AUTH_TOKEN} from "./constants";
+import {createHttpLink} from "apollo-link-http";
+
+const httpLink = createHttpLink({
+    uri: 'http://localhost:4000'
+})
+
+const authLink = setContext((_, { headers }) => {
+    const token = localStorage.getItem(AUTH_TOKEN)
+    return {
+        headers: {
+            ...headers,
+            authorization: token ? `Bearer ${token}` : ''
+        }
+    }
+})
 
 const client = new ApolloClient({
-    uri: 'http://localhost:4000/',
+    link: authLink.concat(httpLink),
     cache: new InMemoryCache(),
-    onError: ({ networkError, graphQLErrors }) => {
+    onError: ({networkError, graphQLErrors}) => {
         console.log('graphQLErrors', graphQLErrors)
         console.log('networkError', networkError)
     }
