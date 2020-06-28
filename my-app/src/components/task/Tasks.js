@@ -14,7 +14,7 @@ import Typography from "@material-ui/core/Typography";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
-import styles from "../student/styles/students.module.css";
+import styles from './styles/tasks.module.css';
 
 const GET_TASKS = gql`
     {
@@ -43,12 +43,11 @@ function ShowTasks(){
 	if (error) return <span className="status-error">Il y a une erreur !</span>;
 
 	return data.tasks.map(({_id, name, status}) => (
-        <Card>
+        <Card className={`${classes.root} ${styles.card}`}>
             <CardActionArea>
                 <CardMedia
                     className={classes.media}
                     image={require('../../img/software-engineer.png')}
-                    title="Contemplative Reptile"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
@@ -72,13 +71,13 @@ function ShowTasks(){
 class Tasks extends Component {
     render() {
         return (
-            <div>
-                <h1>Tâches</h1>
+            <div className={styles.tasks}>
+                <h1 className={styles.projectTitle}>Tâches</h1>
                 <div className="d-flex justify-content-center flex-wrap">
                     <ShowTasks/>
                 </div>
                 {localStorage.getItem(AUTH_TOKEN) !== null && (
-                    <Fab aria-label="add" component={Link} to="/new/task">
+                    <Fab className={styles.btnAdd} aria-label="add" component={Link} to="/new/task">
                         <AddIcon/>
                     </Fab>
                 )}

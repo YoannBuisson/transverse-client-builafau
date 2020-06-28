@@ -7,6 +7,7 @@ import {changeRoute} from "../App";
 import Col from "react-bootstrap/Col";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
+import styles from './styles/projects.module.css'
 
 const POST_PROJECT = gql`
     mutation createProjectWithInput($input: ProjectInput!) {
@@ -22,8 +23,8 @@ function CreateProject({arg}) {
     const [createProjectWithInput, {data}] = useMutation(POST_PROJECT);
 
     return (
-        <Box boxShadow={3} p="1em 0" m="25% 0">
-            <h1>Nouveau Projet</h1>
+        <Box boxShadow={3} className={`text-center rounded ${styles.formBox}`} p="1em 0" m="25% 0">
+            <h1 className={styles.formTitle}>Nouveau Projet</h1>
             <Form onSubmit={e => {
                 e.preventDefault();
                 createProjectWithInput({
@@ -57,7 +58,7 @@ function CreateProject({arg}) {
                         }} required/>
                     </Form.Group>
                 </Form.Row>
-                <Button type="submit" variant="contained">Confirmer</Button>
+                <Button className={styles.btnCreate} type="submit" variant="contained">Confirmer</Button>
             </Form>
         </Box>
     )

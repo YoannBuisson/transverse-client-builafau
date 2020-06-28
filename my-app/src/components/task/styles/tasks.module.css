@@ -1,0 +1,48 @@
+.card {
+    margin: 0.5em;
+}
+
+.tasks {
+    text-align: center;
+    width: 100%;
+}
+
+.formTask {
+    padding: 1em;
+    text-align: left;
+}
+
+.marginR1 {
+    margin-right: 1em;
+}
+
+.inputTask {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid white;
+}
+
+.projectTitle {
+    color: #306a94;
+    font-weight: bold;
+}
+
+.btnAdd {
+    background-color: #3498db;
+    color: white;
+}
+
+.btnCreate {
+    background-color: #3498db;
+    color: white;
+}
+
+.formBox {
+    color: #3498db;
+    border: 1px solid #3498db;
+    border-radius: 5px;
+}
+
+.formTitle {
+    margin-bottom: 1em;
+}

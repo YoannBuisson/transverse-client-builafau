@@ -12,6 +12,8 @@ import {Link} from "react-router-dom";
 import {AUTH_TOKEN} from "../../constants";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
+import styles from './styles/projects.module.css';
+import {makeStyles} from "@material-ui/core/styles";
 
 const GET_PROJECTS = gql`
     {
@@ -23,15 +25,26 @@ const GET_PROJECTS = gql`
     }
 `;
 
+const useStyles = makeStyles({
+    root: {
+        maxWidth: 345,
+    },
+    media: {
+        height: 140,
+    },
+});
+
 function ListProjects() {
     const {loading, error, data } = useQuery(GET_PROJECTS);
+    const classes = useStyles();
 
     if (loading) return <span className="status-warning">LOADING</span>;
     if (error) return <span className="status-error">ERROR</span>;
     return data.projects.map(({_id, name, description}) => (
-        <Card>
+        <Card className={`${classes.root} ${styles.card}`}>
             <CardActionArea>
                 <CardMedia
+                    className={classes.media}
                     image={require('../../img/software-engineer.png')}
                 />
                 <CardContent>
@@ -55,13 +68,13 @@ function ListProjects() {
 class Projects extends Component {
     render() {
         return (
-            <div>
-                <h1>Projets</h1>
+            <div className={styles.projects}>
+                <h1 className={styles.projectTitle}>Projets</h1>
                 <div className="d-flex justify-content-center flex-wrap">
                     <ListProjects/>
                 </div>
                 {localStorage.getItem(AUTH_TOKEN) !== null && (
-                    <Fab aria-label="add" component={Link} to="/new/project">
+                    <Fab className={styles.btnAdd} aria-label="add" component={Link} to="/new/project">
                         <AddIcon/>
                     </Fab>
                 )}

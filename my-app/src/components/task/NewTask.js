@@ -7,6 +7,7 @@ import {changeRoute} from "../App";
 import TextField from "@material-ui/core/TextField";
 import {Box, Button} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
+import styles from './styles/tasks.module.css'
 
 const POST_TASK = gql`
     mutation CreateTask($project: ID, $input: TaskInput!) {
@@ -38,8 +39,8 @@ function CreateTask({arg}) {
     if (error) return `Error! ${error.message}`;
 
     return (
-        <Box boxShadow={3} p="1em 0" m="25% 0">
-            <h1>Nouvelle tâche</h1>
+        <Box boxShadow={3} className={`text-center rounded ${styles.formBox}`} p="1em 0" m="25% 0">
+            <h1 className={styles.formTitle}>Nouvelle tâche</h1>
             <Form onSubmit={e => {
                 e.preventDefault();
                 createTaskWithInput({
@@ -104,7 +105,7 @@ function CreateTask({arg}) {
                 </Form.Row>
 
 
-                <Button type="submit" variant="contained">Confirmer</Button>
+                <Button className={styles.btnCreate} type="submit" variant="contained">Confirmer</Button>
             </Form>
         </Box>
     )
