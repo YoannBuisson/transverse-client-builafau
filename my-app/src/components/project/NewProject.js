@@ -18,6 +18,16 @@ const POST_PROJECT = gql`
         }
     }
 `;
+const GET_PROJECTS = gql`
+    {
+        projects {
+            _id
+            name
+            description
+            dateOfReturn
+        }
+    }
+`;
 
 const GET_STUDENTS = gql`
     {
@@ -30,9 +40,18 @@ const GET_STUDENTS = gql`
 `;
 
 function CreateProject({arg}) {
-    let name, description, student;
-    const [createProjectWithInput, {dataStudent}] = useMutation(POST_PROJECT);
-    const {loading, error, data} = useQuery(GET_STUDENTS);
+    let name, description, dateOfReturn;
+    const [createProjectWithInput, {data}] = useMutation(
+        POST_PROJECT, {
+            update(cache, {data: {createProjectWithInput}}) {
+                const {projects} = cache.readQuery({query: GET_PROJECTS});
+                cache.writeQuery({
+                    query: GET_PROJECTS,
+                    data: {projects: projects.concat([createProjectWithInput])},
+                });
+            }
+        }
+    );
 
     if (loading) return <div className="status-warning"><Spinner animation="grow"/></div>;
     if (error) return <span className="status-error">ERROR</span>;
@@ -46,7 +65,8 @@ function CreateProject({arg}) {
                     variables: {
                         input: {
                             name: name.value,
-                            description: description.value
+                            description: description.value,
+                            dateOfReturn: dateOfReturn.value
                         },
                         student: student.value
                     }
@@ -55,7 +75,7 @@ function CreateProject({arg}) {
                 });
                 name.value = '';
                 description.value = '';
-                student.value = '';
+                dateOfReturn.value = '';
             }}>
                 <Form.Row>
                     <Form.Group as={Col}>
@@ -75,21 +95,15 @@ function CreateProject({arg}) {
                         }} required/>
                     </Form.Group>
                 </Form.Row>
-
                 <Form.Row>
                     <Form.Group as={Col}>
-                        <select name="student" id="student-select" ref={node => {
-                            student = node;
-                        }}>
-                            <option value="">Selectionner un etudiant</option>
-
-                            {data.students.map(value =>
-                                <option value={value._id}>{value.firstName} {value.lastName}</option>
-                            )}
-                        </select>
+                        <TextField type="date" label="Date de rendu" variant="outlined" inputRef={node => {
+                            dateOfReturn = node
+                        }} InputLabelProps={{
+                            shrink: true,
+                        }} required/>
                     </Form.Group>
                 </Form.Row>
-
                 <Button className={styles.btnCreate} type="submit" variant="contained">Confirmer</Button>
             </Form>
         </Box>

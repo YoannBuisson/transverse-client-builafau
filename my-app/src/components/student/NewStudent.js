@@ -9,6 +9,9 @@ import TextField from "@material-ui/core/TextField";
 import {Box, Button} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 
+/*=============================== GraphQL ===============================*/
+/*=======================================================================*/
+/*=======================================================================*/
 const POST_STUDENT = gql`
     mutation CreateUser($input: StudentInput!) {
         createStudentWithInput(input: $input) {
@@ -27,9 +30,12 @@ const GET_STUDENTS = gql`
         }
     }
 `;
+/*=======================================================================*/
+/*=======================================================================*/
+/*=======================================================================*/
 
 function CreateStudent({arg}) {
-    let lastName, firstName, email;
+    let lastName, firstName, email, birthDate;
     const [createStudentWithInput] = useMutation(
         POST_STUDENT,
         {
@@ -54,6 +60,7 @@ function CreateStudent({arg}) {
                             firstName: firstName.value,
                             lastName: lastName.value,
                             email: email.value,
+                            birthDate: birthDate.value
                         }
                     }
                 }).then(() => {
@@ -62,6 +69,7 @@ function CreateStudent({arg}) {
                 email.value = '';
                 lastName.value = '';
                 firstName.value = '';
+                birthDate.value = '';
             }}>
                 <Form.Row>
                     <Form.Group as={Col}>
@@ -85,6 +93,15 @@ function CreateStudent({arg}) {
                     <Form.Group as={Col}>
                         <TextField type="email" label="Email" variant="outlined" inputRef={node => {
                             email = node
+                        }} InputLabelProps={{
+                            shrink: true,
+                        }} required/>
+                    </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                    <Form.Group as={Col}>
+                        <TextField type="date" label="Date de naissance" variant="outlined" inputRef={node => {
+                            birthDate = node
                         }} InputLabelProps={{
                             shrink: true,
                         }} required/>

@@ -10,7 +10,7 @@ import Container from "@material-ui/core/Container";
 import styles from './styles/tasks.module.css'
 
 const POST_TASK = gql`
-    mutation CreateTask($project: ID, $input: TaskInput!) {
+    mutation CreateTask($project: ID!, $input: TaskInput!) {
         createTaskWithInput(_id: $project, input: $input) {
             name,
             duration,
@@ -31,7 +31,7 @@ const GET_PROJECTS = gql`
 `;
 
 function CreateTask({arg}) {
-    let name, duration, priority, project;
+    let name, duration, priority;
     const { loading, error, data } = useQuery(GET_PROJECTS);
     const [createTaskWithInput, {dataStudent}] = useMutation(POST_TASK);
 
@@ -51,15 +51,14 @@ function CreateTask({arg}) {
                             priority: parseInt(priority.value),
                             status: false
                         },
-                        project: project.value
+                        project: arg.match.params.id
                     }
                 }).then(dataStudent => {
-                    changeRoute(arg, '/tasks');
+                    changeRoute(arg, `/projects/${arg.match.params.id}`);
                 });
                 name.value = '';
                 duration.value = '';
                 priority.value = '';
-                project.value = '';
             }}>
                 <Form.Row>
                     <Form.Group as={Col}>
@@ -88,23 +87,6 @@ function CreateTask({arg}) {
                         }} required/>
                     </Form.Group>
                 </Form.Row>
-
-
-                <Form.Row>
-                    <Form.Group as={Col}>
-                        <select name="project" id="project-select" ref={node => {
-                            project = node;
-                        }}>
-                            <option value="">Selectionner un projet</option>
-
-                            {data.projects.map(value =>
-                                <option value={value._id}>{value.name}</option>
-                            )}
-                        </select>
-                    </Form.Group>
-                </Form.Row>
-
-
                 <Button className={styles.btnCreate} type="submit" variant="contained">Confirmer</Button>
             </Form>
         </Box>

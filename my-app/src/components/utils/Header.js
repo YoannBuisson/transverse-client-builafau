@@ -95,11 +95,6 @@ function AppNavBar({arg}) {
                     <ListItemText className={classes.listText}>Etudiants</ListItemText>
                 </ListItem>
                 <Divider variant="inset" component="li"/>
-                <ListItem button component={Link} to="/tasks">
-                    <ListItemIcon><ListAltRoundedIcon className={classes.listText}/></ListItemIcon>
-                    <ListItemText className={classes.listText}>Tâches</ListItemText>
-                </ListItem>
-                <Divider variant="inset" component="li"/>
                 <ListItem button component={Link} to="/projects">
                     <ListItemIcon><AccountTreeRoundedIcon className={classes.listText}/></ListItemIcon>
                     <ListItemText className={classes.listText}>Projets</ListItemText>

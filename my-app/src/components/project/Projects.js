@@ -14,6 +14,7 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import styles from './styles/projects.module.css';
 import {makeStyles} from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const GET_PROJECTS = gql`
     {
@@ -21,6 +22,7 @@ const GET_PROJECTS = gql`
             _id
             name
             description
+            dateOfReturn
         }
     }
 `;
@@ -35,13 +37,13 @@ const useStyles = makeStyles({
 });
 
 function ListProjects() {
-    const {loading, error, data } = useQuery(GET_PROJECTS);
+    const {loading, error, data} = useQuery(GET_PROJECTS);
     const classes = useStyles();
 
-    if (loading) return <span className="status-warning">LOADING</span>;
-    if (error) return <span className="status-error">ERROR</span>;
-    return data.projects.map(({_id, name, description}) => (
-        <Card>
+    if (loading) return <span className="status-warning"><CircularProgress/></span>;
+    if (error) return <span className="status-error">ERREUR</span>;
+    return data.projects.map(({_id, name, description, dateOfReturn}) => (
+        <Card className={`${classes.root} ${styles.card}`}>
             <CardActionArea>
                 <CardMedia
                     className={classes.media}
@@ -54,10 +56,18 @@ function ListProjects() {
                     <Typography variant="body2" color="textSecondary" component="p">
                         {description}
                     </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        Ce projet est rendre avant le <strong>{new Date(dateOfReturn).toLocaleDateString()}</strong>
+                    </Typography>
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary" component={Link} to={`/projects/${_id}`} >
+                {localStorage.getItem(AUTH_TOKEN) !== null && (
+                    <Button size="small" color="primary" variant="contained" component={Link} to={`/new/task/${_id}`}>
+                        Ajouter une tâche
+                    </Button>
+                )}
+                <Button size="small" color="primary" component={Link} to={`/projects/${_id}`}>
                     En savoir plus
                 </Button>
             </CardActions>
@@ -74,7 +84,8 @@ class Projects extends Component {
                     <ListProjects/>
                 </div>
                 {localStorage.getItem(AUTH_TOKEN) !== null && (
-                    <Fab className={styles.btnAdd} aria-label="add" component={Link} to="/new/project">
+                    <Fab style={{backgroundColor: "#306a94", color: "white"}} aria-label="add" component={Link}
+                         to="/new/project">
                         <AddIcon/>
                     </Fab>
                 )}
