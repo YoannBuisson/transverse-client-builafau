@@ -1,5 +1,5 @@
-import React, {Component, useState} from "react";
-import {Link} from "react-router-dom";
+import React, {Component} from "react";
+import {Link, withRouter} from "react-router-dom";
 import {AUTH_TOKEN} from "../../constants";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -131,15 +131,15 @@ function AppNavBar({arg}) {
                         StudentsQL
                     </Typography>
                     {localStorage.getItem(AUTH_TOKEN) === null ? (
-                        <div className="d-flex">
-                            <Button component={Link} to="/login" color="inherit" className={classes.navButton}>
-                                Connexion
-                            </Button>
-                            <div className="border"/>
-                            <Button component={Link} to="/register" color="inherit" className={classes.navButton}>
-                                Créer un compte
-                            </Button>
-                        </div>
+                            <div className="d-flex">
+                                <Button component={Link} to="/login" color="inherit" className={classes.navButton}>
+                                    Connexion
+                                </Button>
+                                <div className="border"/>
+                                <Button component={Link} to="/register" color="inherit" className={classes.navButton}>
+                                    Créer un compte
+                                </Button>
+                            </div>
                         ) :
                         <div>
                             <IconButton
@@ -184,4 +184,4 @@ export class Header extends Component {
     }
 }
 
-export default Header
+export default withRouter(Header)

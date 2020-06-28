@@ -34,7 +34,13 @@ const useStyles = makeStyles({
 function SignUp({arg}) {
     const classes = useStyles();
     let email, username, password;
-    const [signUp, {data}] = useMutation(SIGN_UP);
+    const [isExistingEmail, setIsExistingEmail] = React.useState(false);
+    const [isExistingUsername, setIsExistingUsername] = React.useState(false);
+    const [signUp, {error}] = useMutation(
+        SIGN_UP,
+        {
+            errorPolicy: 'all'
+        });
 
     return (
         <Box boxShadow={3} className={`text-center rounded ${classes.formBox}`} color="white" p="1em 0" m="25% 0">
@@ -49,8 +55,10 @@ function SignUp({arg}) {
                             password: password.value
                         }
                     }
-                }).then(data => {
+                }).then(() => {
                     changeRoute(arg, '/login');
+                }).catch(() => {
+                    setIsExistingEmail(true);
                 });
                 email.value = '';
                 username.value = '';
@@ -58,20 +66,36 @@ function SignUp({arg}) {
             }}>
                 <Form.Row>
                     <Form.Group as={Col}>
-                        <TextField type="email" label="Email" variant="outlined" inputRef={node => {
-                            email = node
-                        }} InputLabelProps={{
-                            shrink: true,
-                        }} required/>
+                        {!isExistingEmail ? (
+                            <TextField type="email" label="Email" variant="outlined" inputRef={node => {
+                                email = node
+                            }} InputLabelProps={{
+                                shrink: true,
+                            }} required/>
+                        ) : (
+                            <TextField type="email" label="Email" variant="outlined" inputRef={node => {
+                                email = node
+                            }} InputLabelProps={{
+                                shrink: true,
+                            }} required error helperText={error.message}/>
+                        )}
                     </Form.Group>
                 </Form.Row>
                 <Form.Row>
                     <Form.Group as={Col}>
-                        <TextField type="text" label="Nom d'utilisateur" variant="outlined" inputRef={node => {
-                            username = node
-                        }} InputLabelProps={{
-                            shrink: true,
-                        }} required/>
+                        {!isExistingEmail ? (
+                            <TextField type="text" label="Nom d'utilisateur" variant="outlined" inputRef={node => {
+                                username = node
+                            }} InputLabelProps={{
+                                shrink: true,
+                            }} required/>
+                        ) : (
+                            <TextField type="text" label="Nom d'utilisateur" variant="outlined" inputRef={node => {
+                                username = node
+                            }} InputLabelProps={{
+                                shrink: true,
+                            }} required error helperText={error.message}/>
+                        )}
                     </Form.Group>
                 </Form.Row>
                 <Form.Row>
