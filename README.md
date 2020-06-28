@@ -25,5 +25,7 @@ Le client est ensuite accessible sur http://localhost:3000.
 
 ## Conseils
 
-Dans certains cas, les données modifiés ne se refleteront pas directement dans la vue.
+Dans certains cas, les données modifiées ne se refleteront pas directement dans la vue.
 Il est nécessaire de ces cas là de rafraîchir la page pour les voir apparaître.
+
+Exemple: Une fois connecté, si je souhaite ajouter un étudiant, cela me ramènera vers la page de connexion et non vers le formulaire de création. Il est conseillé alors de revenir à l'écran d'accueil et de rafraîchir la page, puis de réessayer. 
