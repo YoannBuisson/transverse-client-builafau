@@ -17,10 +17,31 @@ const POST_STUDENT = gql`
         }
     }
 `;
+const GET_STUDENTS = gql`
+    {
+        students {
+            _id
+            firstName
+            lastName
+            email
+        }
+    }
+`;
 
 function CreateStudent({arg}) {
     let lastName, firstName, email;
-    const [createStudentWithInput, {data}] = useMutation(POST_STUDENT);
+    const [createStudentWithInput] = useMutation(
+        POST_STUDENT,
+        {
+            update(cache, {data: {createStudentWithInput}}) {
+                const {students} = cache.readQuery({query: GET_STUDENTS});
+                cache.writeQuery({
+                    query: GET_STUDENTS,
+                    data: {students: students.concat([createStudentWithInput])},
+                });
+            }
+        }
+    );
 
     return (
         <Box boxShadow={3} className={`text-center rounded ${styles.formBox}`} p="1em 0" m="25% 0">
@@ -35,8 +56,7 @@ function CreateStudent({arg}) {
                             email: email.value,
                         }
                     }
-                }).then(data => {
-                    console.log("Passwed");
+                }).then(() => {
                     changeRoute(arg, '/students');
                 });
                 email.value = '';

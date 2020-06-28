@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/App.css';
 import Header from './utils/Header';
-import {Route, Switch} from 'react-router-dom';
+import {Redirect, Route, Switch} from 'react-router-dom';
 import Home from './home/Home';
 import StudentDetails from './student/StudentDetails';
 import Tasks from './task/Tasks';
@@ -14,6 +14,7 @@ import NewStudent from './student/NewStudent';
 import Students from './student/Students';
 import Login from './utils/Login';
 import Register from './utils/Register';
+import {AUTH_TOKEN} from "../constants";
 
 
 export function changeRoute(props, route) {
@@ -32,12 +33,16 @@ function App() {
                     <Route exact path='/register' component={Register}/>
                     <Route exact path='/students' component={Students}/>
                     <Route exact path='/students/:id' component={StudentDetails}/>
-                    <Route exact path='/new/student' component={NewStudent}/>
                     <Route exact path='/tasks' component={Tasks}/>
                     <Route exact path='/tasks/:id' component={TaskDetail}/>
                     <Route exact path='/new/task' component={NewTask}/>
                     <Route exact path='/projects' component={Projects}/>
                     <Route exact path='/projects/:id' component={ProjectDetail}/>
+                    {localStorage.getItem(AUTH_TOKEN) !== null ? (
+                        <Route exact path='/new/student' component={NewStudent}/>
+                    ) : (
+                        <Redirect to="/login"/>
+                    )}
                     <Route exact path='/new/project' component={NewProject}/>
                 </Switch>
             </div>

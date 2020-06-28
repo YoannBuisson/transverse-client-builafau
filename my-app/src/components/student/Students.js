@@ -47,7 +47,7 @@ function ShowStudents() {
                 <CardMedia
                     className={classes.media}
                     image={require('../../img/software-engineer.png')}
-                    title="Contemplative Reptile"
+                    title="Student Logo"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
@@ -62,7 +62,7 @@ function ShowStudents() {
                 <Button size="small" color="primary">
                     Share
                 </Button>
-                <Button size="small" color="primary" component={Link} to={`/students/${_id}`} >
+                <Button size="small" color="primary" component={Link} to={`/students/${_id}`}>
                     En savoir plus
                 </Button>
             </CardActions>
@@ -79,7 +79,7 @@ class Students extends Component {
                     <ShowStudents/>
                 </div>
                 {localStorage.getItem(AUTH_TOKEN) !== null && (
-                    <Fab className={styles.btnAdd} aria-label="add" component={Link} to="/new/student">
+                    <Fab style={{backgroundColor: "#306a94"}} aria-label="add" component={Link} to="/new/student">
                         <AddIcon/>
                     </Fab>
                 )}
