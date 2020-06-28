@@ -35,7 +35,7 @@ const useStyles = makeStyles({
 function LoginUser({arg}) {
     let password, username;
     const classes = useStyles();
-    const [loginUser, {data}] = useMutation(LOGIN);
+    const [loginUser] = useMutation(LOGIN);
 
     return (
         <Box boxShadow={3} className={`text-center rounded ${classes.formBox}`} p="1em 0" m="25% 0">

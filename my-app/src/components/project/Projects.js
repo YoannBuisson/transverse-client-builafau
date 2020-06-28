@@ -41,7 +41,7 @@ function ListProjects() {
     if (loading) return <span className="status-warning">LOADING</span>;
     if (error) return <span className="status-error">ERROR</span>;
     return data.projects.map(({_id, name, description}) => (
-        <Card className={`${classes.root} ${styles.card}`}>
+        <Card>
             <CardActionArea>
                 <CardMedia
                     className={classes.media}
