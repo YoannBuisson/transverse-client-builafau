@@ -1,53 +1,23 @@
-# Cour-LP-React-PWA
+# Transverse Client - Yoann BUISSON & Thibault LAFAURIE
+Cette application a été réalisé dans le cadre d'un projet scolaire.
 
-Going to create a React App
-Build a PWA installable APP
-With a little design framework 
 
-## First
+## Prérequis
 
-Via npm, we gonna clone the Create-React-App template purposed by Facebook. 
+Il est nécessaire d'avoir **MongoDB** de fonctionnel et qui tourne avec une base portant le nom "transverse".
 
-### npx
+## Installation 
 
+Pour installer les dépendances npm, il suffit de lancer une seule commande.
 ```sh
-npx create-react-app my-app
+$ npm install
 ```
 
-### or via npm
+## Lancement
 
+Pour lancer le client, une seule commande est requise aussi.
 ```sh
-npm init react-app my-app
+$ npm start
 ```
 
-## Second 
-
-Now we have the app ! Cool, 
-What you can do for now: 
-
-Success! Created my-app at C:\Users\ppier\Developpement\Cour-LP-React-PWA\my-app
-Inside that directory, you can run several commands:
-
-```sh
-  npm start
-``` 
-    Starts the development server.
-```sh
-  npm run build
-```
-    Bundles the app into static files for production.
-```sh
-  npm test
-```
-    Starts the test runner.
-```sh
-  npm run eject
-```
-    Removes this tool and copies build dependencies, configuration files
-    and scripts into the app directory. If you do this, you can’t go back!
-
-We suggest that you begin by typing:
-```sh
-  cd my-app
-  npm start
-```
+Le serveur et ensuite accessible sur http://localhost:3000.
