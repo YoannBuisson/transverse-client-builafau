@@ -2,7 +2,7 @@ import React, {Component} from "react";
 
 class TaskDetail extends Component {
     render() {
-        return <h1>Task detail</h1>;
+        return <h1>{this.props.match.params.id}</h1>;
     }
 }
 

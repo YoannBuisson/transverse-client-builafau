@@ -67,18 +67,6 @@ function ShowStudents() {
                 </Button>
             </CardActions>
         </Card>
-        // <Card className={styles.card} border="white" bg="info">
-        //     <Card.Header>{firstName} {lastName.toUpperCase()}</Card.Header>
-        //     <Card.Body>
-        //         <Card.Title>
-        //             Email
-        //         </Card.Title>
-        //         <Card.Text>
-        //             {email}
-        //         </Card.Text>
-        //         <Link to={`/students/${_id}`} className="text-white font-weight-bold">Détails</Link>
-        //     </Card.Body>
-        // </Card>
     ));
 }
 

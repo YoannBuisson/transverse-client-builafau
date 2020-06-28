@@ -6,8 +6,10 @@ import Home from './home/Home';
 import StudentDetails from './student/StudentDetails';
 import Tasks from './task/Tasks';
 import TaskDetail from "./task/TaskDetail";
+import NewTask from './task/NewTask';
 import Projects from './project/Projects';
 import ProjectDetail from './project/ProjectDetail';
+import NewProject from './project/NewProject';
 import NewStudent from './student/NewStudent';
 import Students from './student/Students';
 import Login from './utils/Login';
@@ -33,8 +35,10 @@ function App() {
                     <Route exact path='/new/student' component={NewStudent}/>
                     <Route exact path='/tasks' component={Tasks}/>
                     <Route exact path='/tasks/:id' component={TaskDetail}/>
+                    <Route exact path='/new/task' component={NewTask}/>
                     <Route exact path='/projects' component={Projects}/>
                     <Route exact path='/projects/:id' component={ProjectDetail}/>
+                    <Route exact path='/new/project' component={NewProject}/>
                 </Switch>
             </div>
         </div>
