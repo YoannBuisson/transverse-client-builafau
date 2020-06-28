@@ -20,4 +20,10 @@ Pour lancer le client, une seule commande est requise aussi.
 $ npm start
 ```
 
-Le serveur et ensuite accessible sur http://localhost:3000.
+Le client est ensuite accessible sur http://localhost:3000.
+
+
+## Conseils
+
+Dans certains cas, les données modifiés ne se refleteront pas directement dans la vue.
+Il est nécessaire de ces cas là de rafraîchir la page pour les voir apparaître.
