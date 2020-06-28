@@ -3,7 +3,6 @@ import gql from "graphql-tag";
 import {useQuery} from "@apollo/react-hooks";
 import {Link} from 'react-router-dom';
 import styles from './styles/students.module.css'
-import Spinner from 'react-bootstrap/Spinner';
 import {AUTH_TOKEN} from '../../constants';
 import Fab from "@material-ui/core/Fab";
 import AddIcon from '@material-ui/icons/Add';
@@ -17,6 +16,9 @@ import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+/*=============================== GraphQL ===============================*/
+/*=======================================================================*/
+/*=======================================================================*/
 const GET_STUDENTS = gql`
     {
         students {
@@ -27,6 +29,13 @@ const GET_STUDENTS = gql`
         }
     }
 `;
+/*=======================================================================*/
+/*=======================================================================*/
+/*=======================================================================*/
+
+/*================================ Const ================================*/
+/*=======================================================================*/
+/*=======================================================================*/
 const useStyles = makeStyles({
     root: {
         maxWidth: 345,
@@ -35,6 +44,9 @@ const useStyles = makeStyles({
         height: 140,
     },
 });
+/*=======================================================================*/
+/*=======================================================================*/
+/*=======================================================================*/
 
 function ShowStudents() {
     const classes = useStyles();

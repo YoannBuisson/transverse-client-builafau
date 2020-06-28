@@ -72,6 +72,7 @@ const UPDATE_STUDENT = gql`
         }
     }
 `;
+
 const GET_PROJECTS = gql`
     {
         projects {

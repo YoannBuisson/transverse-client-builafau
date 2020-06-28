@@ -19,6 +19,9 @@ import {withStyles} from "@material-ui/styles";
 import styles from "../student/styles/students.module.css";
 import ListSubheader from "@material-ui/core/ListSubheader";
 
+/*=============================== GraphQL ===============================*/
+/*=======================================================================*/
+/*=======================================================================*/
 const GET_PROJECT = gql`
     query GetStudentById($projectId: ID!) {
         projectById(_id: $projectId) {
@@ -36,12 +39,20 @@ const GET_PROJECT = gql`
         }
     }
 `;
+/*=======================================================================*/
+/*=======================================================================*/
+/*=======================================================================*/
+
+/*================================ Const ================================*/
+/*=======================================================================*/
+/*=======================================================================*/
 const useStyles = makeStyles({
     media: {
         height: 200,
         margin: "auto",
     },
 });
+
 const StyledTableCell = withStyles((theme) => ({
     head: {
         backgroundColor: "linear-gradient(to right, #d3cce3, #e9e4f0)",
@@ -50,6 +61,7 @@ const StyledTableCell = withStyles((theme) => ({
         fontSize: 14,
     },
 }))(TableCell);
+
 const StyledTableRow = withStyles((theme) => ({
     root: {
         '&:nth-of-type(odd)': {
@@ -57,6 +69,9 @@ const StyledTableRow = withStyles((theme) => ({
         },
     },
 }))(TableRow);
+/*=======================================================================*/
+/*=======================================================================*/
+/*=======================================================================*/
 
 function GetProject({projectId}) {
     const classes = useStyles();

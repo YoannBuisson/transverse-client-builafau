@@ -16,6 +16,9 @@ import styles from './styles/projects.module.css';
 import {makeStyles} from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+/*=============================== GraphQL ===============================*/
+/*=======================================================================*/
+/*=======================================================================*/
 const GET_PROJECTS = gql`
     {
         projects {
@@ -26,7 +29,13 @@ const GET_PROJECTS = gql`
         }
     }
 `;
+/*=======================================================================*/
+/*=======================================================================*/
+/*=======================================================================*/
 
+/*================================ Const ================================*/
+/*=======================================================================*/
+/*=======================================================================*/
 const useStyles = makeStyles({
     root: {
         maxWidth: 345,
@@ -34,7 +43,16 @@ const useStyles = makeStyles({
     media: {
         height: 140,
     },
+    btnLink: {
+        '&:hover': {
+            color: "white"
+        }
+    }
 });
+/*=======================================================================*/
+/*=======================================================================*/
+
+/*=======================================================================*/
 
 function ListProjects() {
     const {loading, error, data} = useQuery(GET_PROJECTS);
@@ -63,7 +81,8 @@ function ListProjects() {
             </CardActionArea>
             <CardActions>
                 {localStorage.getItem(AUTH_TOKEN) !== null && (
-                    <Button size="small" color="primary" variant="contained" component={Link} to={`/new/task/${_id}`}>
+                    <Button classes={classes.btnLink} size="small" color="primary" variant="contained" component={Link}
+                            to={`/new/task/${_id}`}>
                         Ajouter une tâche
                     </Button>
                 )}

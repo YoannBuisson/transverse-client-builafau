@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import React, {Component} from "react";
+import {useMutation} from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import {Box, Button} from "@material-ui/core";
 import Form from "react-bootstrap/Form";
@@ -8,11 +8,13 @@ import Col from "react-bootstrap/Col";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
 import styles from './styles/projects.module.css'
-import Spinner from "react-bootstrap/Spinner";
 
+/*=============================== GraphQL ===============================*/
+/*=======================================================================*/
+/*=======================================================================*/
 const POST_PROJECT = gql`
-    mutation createProjectWithInput($student: ID!, $input: ProjectInput!) {
-        createProjectWithInput(_id: $student, input: $input) {
+    mutation createProjectWithInput($input: ProjectInput!) {
+        createProjectWithInput(input: $input) {
             name,
             description
         }
@@ -28,16 +30,9 @@ const GET_PROJECTS = gql`
         }
     }
 `;
-
-const GET_STUDENTS = gql`
-    {
-        students {
-            _id
-            firstName
-            lastName
-        }
-    }
-`;
+/*=======================================================================*/
+/*=======================================================================*/
+/*=======================================================================*/
 
 function CreateProject({arg}) {
     let name, description, dateOfReturn;
@@ -53,9 +48,6 @@ function CreateProject({arg}) {
         }
     );
 
-    if (loading) return <div className="status-warning"><Spinner animation="grow"/></div>;
-    if (error) return <span className="status-error">ERROR</span>;
-
     return (
         <Box boxShadow={3} className={`text-center rounded ${styles.formBox}`} p="1em 0" m="25% 0">
             <h1 className={styles.formTitle}>Nouveau Projet</h1>
@@ -68,7 +60,6 @@ function CreateProject({arg}) {
                             description: description.value,
                             dateOfReturn: dateOfReturn.value
                         },
-                        student: student.value
                     }
                 }).then(dataStudent => {
                     changeRoute(arg, '/projects');
