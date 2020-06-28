@@ -47,7 +47,7 @@ function ShowStudents() {
                 <CardMedia
                     className={classes.media}
                     image={require('../../img/software-engineer.png')}
-                    title="Contemplative Reptile"
+                    title="Student Logo"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">

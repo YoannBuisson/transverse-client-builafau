@@ -5,31 +5,23 @@ import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter} from 'react-router-dom';
 import {InMemoryCache} from 'apollo-cache-inmemory';
-import ApolloClient from 'apollo-boost';
 import {ApolloProvider} from "@apollo/react-hooks";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'fontsource-roboto';
-import {setContext} from "apollo-link-context";
 import {AUTH_TOKEN} from "./constants";
-import {createHttpLink} from "apollo-link-http";
-
-const httpLink = createHttpLink({
-    uri: 'http://localhost:4000'
-})
-
-const authLink = setContext((_, { headers }) => {
-    const token = localStorage.getItem(AUTH_TOKEN)
-    return {
-        headers: {
-            ...headers,
-            authorization: token ? `Bearer ${token}` : ''
-        }
-    }
-})
+import ApolloClient from "apollo-boost";
 
 const client = new ApolloClient({
-    link: authLink.concat(httpLink),
+    uri: 'http://localhost:4000',
     cache: new InMemoryCache(),
+    request: (operation) => {
+        const token = localStorage.getItem(AUTH_TOKEN)
+        operation.setContext({
+            headers: {
+                authorization: token ? `Bearer ${token}` : ''
+            }
+        })
+    },
     onError: ({networkError, graphQLErrors}) => {
         console.log('graphQLErrors', graphQLErrors)
         console.log('networkError', networkError)
