@@ -17,7 +17,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import PeopleAltRoundedIcon from '@material-ui/icons/PeopleAltRounded';
-import ListAltRoundedIcon from '@material-ui/icons/ListAltRounded';
 import AccountTreeRoundedIcon from '@material-ui/icons/AccountTreeRounded';
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
@@ -65,9 +64,6 @@ function AppNavBar({arg}) {
     const classes = useStyles();
     const open = Boolean(anchorEl);
 
-    /*============================== Functions ==============================*/
-    /*=======================================================================*/
-    /*=======================================================================*/
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -95,11 +91,6 @@ function AppNavBar({arg}) {
                     <ListItemText className={classes.listText}>Etudiants</ListItemText>
                 </ListItem>
                 <Divider variant="inset" component="li"/>
-                <ListItem button component={Link} to="/tasks">
-                    <ListItemIcon><ListAltRoundedIcon className={classes.listText}/></ListItemIcon>
-                    <ListItemText className={classes.listText}>Tâches</ListItemText>
-                </ListItem>
-                <Divider variant="inset" component="li"/>
                 <ListItem button component={Link} to="/projects">
                     <ListItemIcon><AccountTreeRoundedIcon className={classes.listText}/></ListItemIcon>
                     <ListItemText className={classes.listText}>Projets</ListItemText>
@@ -107,9 +98,6 @@ function AppNavBar({arg}) {
             </List>
         </div>
     );
-    /*=======================================================================*/
-    /*=======================================================================*/
-    /*=======================================================================*/
 
     return (
         <div className={classes.root}>
